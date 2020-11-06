@@ -1,5 +1,9 @@
 name: Update gist with Twitter data
 
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
 jobs:
   update-gist:
     runs-on: ubuntu-latest
@@ -9,4 +13,9 @@ jobs:
         uses: ivgtr/twitter-box@master
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          GIST_ID: 968220c97e8da1d047a9a480fa432e54
+          GIST_ID: 21fd0f552ed73091f0b19c4732683805
+          TWITTER_ID: mawaru_hana
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET_KEY: ${{ secrets.CONSUMER_SECRET_KEY }}
+          ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+          ACCESS_SECRET_KEY: ${{ secrets.ACCESS_SECRET_KEY }}
