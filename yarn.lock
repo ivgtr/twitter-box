@@ -286,6 +286,11 @@
     "@typescript-eslint/types" "4.6.1"
     eslint-visitor-keys "^2.0.0"
 
+"@vercel/ncc@^0.25.0":
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/@vercel/ncc/-/ncc-0.25.0.tgz#c47bda29064cf094ffd4dd6cea45bd21a108ec15"
+  integrity sha512-QDVwcVgahq66ZB11D/KlI1HF+lS0+NRjbOETFKZryZh14rx+zBIVkm6Yu/9tyj2Oz8FIc3PFYORl+mPDjTAiEg==
+
 "@vue/eslint-config-prettier@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@vue/eslint-config-prettier/-/eslint-config-prettier-6.0.0.tgz#ad5912b308f4ae468458e02a2b05db0b9d246700"
