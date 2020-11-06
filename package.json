@@ -1,0 +1,19 @@
+{
+  "name": "twitter-box",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivgtr/twitter-box.git"
+  },
+  "author": "ivgtr <gear.1112t.o@gmail.com> (https://github.com/ivgtr)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivgtr/twitter-box/issues"
+  },
+  "homepage": "https://github.com/ivgtr/twitter-box#readme"
+}
