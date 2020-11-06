@@ -1,9 +1,9 @@
 name: Update gist with Twitter data
 
 on:
-  push:
-    branches: [ master ]
-
+  schedule:
+    - cron: "0 0 * * *"
+  
 jobs:
   update-gist:
     runs-on: ubuntu-latest
