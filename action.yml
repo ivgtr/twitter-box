@@ -1,0 +1,8 @@
+name: "twitter-box"
+description: "Update a pinned gist to contain twitter data"
+branding:
+  icon: "clipboard"
+  color: "blue"
+runs:
+  using: "node12"
+  main: "lib/index.js"
