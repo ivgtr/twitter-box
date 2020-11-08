@@ -2,7 +2,7 @@ name: Update gist with Twitter data
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 15 * * *"
   
 jobs:
   update-gist:
@@ -12,7 +12,6 @@ jobs:
       - name: Update gist
         uses: ivgtr/twitter-box@master
         env:
-          TZ: Asia/Tokyo
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GIST_ID: 21fd0f552ed73091f0b19c4732683805
           TWITTER_ID: mawaru_hana
