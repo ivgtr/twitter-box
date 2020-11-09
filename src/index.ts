@@ -4,7 +4,6 @@ import * as dotenv from 'dotenv'
 import dayjs from 'dayjs'
 
 dotenv.config()
-dayjs.locale('ja')
 
 const {
   GIST_ID: gistId,
