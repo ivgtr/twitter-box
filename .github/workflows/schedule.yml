@@ -2,9 +2,7 @@ name: Update gist with Twitter data
 
 on:
   schedule:
-    - cron: "0 16 * * *"
-  push:
-    branches: [ master ]
+    - cron: "0 15 * * *"
   
 jobs:
   update-gist:

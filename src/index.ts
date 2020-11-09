@@ -113,7 +113,7 @@ const updateGist = async (text: string) => {
       files: {
         [filename]: {
           filename: `📊 Data of yesterday's tweets by @${twitterId}`,
-          content: `${text}\n${dayjs().format('YYYY-MM-DDTHH:mm:ssZ')}`
+          content: text
         }
       }
     })
