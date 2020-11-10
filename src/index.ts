@@ -1,4 +1,4 @@
-import Twitter from 'twitter'
+import fetch from 'node-fetch'
 import { Octokit } from '@octokit/rest'
 import * as dotenv from 'dotenv'
 import dayjs from 'dayjs'
@@ -9,20 +9,10 @@ const {
   GIST_ID: gistId,
   GH_TOKEN: githubToken,
   TWITTER_ID: twitterId,
-  CONSUMER_KEY: consumerKey,
-  CONSUMER_SECRET_KEY: consumerSecretKey,
-  ACCESS_KEY: accessKey,
-  ACCESS_SECRET_KEY: accessSecretKey
+  TWITTER_TOKEN: twitterToken
 } = process.env
 
 const octokit = new Octokit({ auth: `token ${githubToken}` })
-
-const client = new Twitter({
-  consumer_key: consumerKey,
-  consumer_secret: consumerSecretKey,
-  access_token_key: accessKey,
-  access_token_secret: accessSecretKey
-})
 
 const requestTwitterTimeline = async (
   totalTimelineData: countData = {
@@ -32,21 +22,27 @@ const requestTwitterTimeline = async (
     countOver: false
   }
 ): Promise<countData> => {
+  const headers = {
+    Authorization: `Bearer ${twitterToken}`
+  }
+
+  const options = {
+    method: 'GET',
+    headers
+  }
   const yesterday = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
-  const count = 50
+  const count = 100
+
+  let url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 
   const timelineData: countData = await new Promise((resolve, reject) => {
-    const params: requestParams = {
-      screen_name: twitterId,
-      count,
-      trim_user: true
-    }
+    url += `?screen_name=${twitterId}&count=${count}&trim_user=true`
 
     if (totalTimelineData.lastId) {
-      params.max_id = totalTimelineData.lastId
+      url += `&max_id=${totalTimelineData.lastId}`
     }
-    client
-      .get('statuses/user_timeline', params)
+    fetch(url, options)
+      .then((response) => response.json())
       .then((result: timelineData[]) => {
         let { tweetCount } = totalTimelineData
         let { rtCount } = totalTimelineData
@@ -59,7 +55,6 @@ const requestTwitterTimeline = async (
           }
           return tweet
         })
-
         const lastData = result.slice(-1)[0]
 
         const countOver =

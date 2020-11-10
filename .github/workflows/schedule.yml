@@ -1,8 +1,8 @@
 name: Update gist with Twitter data
 
-on:
-  schedule:
-    - cron: "0 15 * * *"
+# on:
+#   schedule:
+#     - cron: "0 15 * * *"
   
 jobs:
   update-gist:
@@ -17,7 +17,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GIST_ID: 21fd0f552ed73091f0b19c4732683805
           TWITTER_ID: mawaru_hana
-          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
-          CONSUMER_SECRET_KEY: ${{ secrets.CONSUMER_SECRET_KEY }}
-          ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
-          ACCESS_SECRET_KEY: ${{ secrets.ACCESS_SECRET_KEY }}
+          TWITTER_TOKEN: ${{ secrets.TWITTER_TOKEN }}
