@@ -34,7 +34,7 @@ _導入はかなり面倒くさいです_
 1. repository のSettings > Secrets へ行きます
 1. 以下の環境変数を追加します:
    - **GH_TOKEN:** 上記で生成された GitHub トークン
-   - **TWITTER_TOKEN:** Twitter のBearer Token
+   - **TWITTER_TOKEN:** 上記で生成された Twitter のBearer Token
 
 
 
