@@ -6,7 +6,7 @@
 
 ---
 
-> 📌✨ For more pinned-gist projects like this one, check out: https://github.com/matchai/awesome-pinned-gists
+> 📌✨ inspire: https://github.com/matchai/waka-box
 
 #### これは何?
 Twitter のデータをピン留めされたgistに自動更新で表示させることができます 
