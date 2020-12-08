@@ -13,10 +13,14 @@ Twitter のデータをピン留めされたgistに自動更新で表示させ�
 
 #### 機能
 - ツイ廃あらーと(https://twihaialert.net/)
+   - 昨日のツイート数(うちRT数)を数えます
 
 ## Setup
-### ※注意
-_導入はかなり面倒くさいです_
+
+### 必要なもの
+- Github アカウント
+- Twitter アカウント
+   - 開発者申請をする必要がある
 
 ### 準備
 1. GitHub Gist を`public` で作成します (https://gist.github.com/)
