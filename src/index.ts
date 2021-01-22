@@ -1,7 +1,7 @@
-import fetch from 'node-fetch'
 import { Octokit } from '@octokit/rest'
 import * as dotenv from 'dotenv'
 import dayjs from 'dayjs'
+import axios from 'axios'
 
 dotenv.config()
 
@@ -14,39 +14,64 @@ const {
 
 const octokit = new Octokit({ auth: `token ${githubToken}` })
 
+type tweetCountData = {
+  tweetCount: number
+  rtCount: number
+  lastId?: number
+  countOver: boolean
+}
+
+type timeline = {
+  created_at: string
+  retweeted_status: string
+  id: number
+  text: string
+}
+
+type getRequestParams = {
+  screen_name: string
+  count: number
+  trim_user: boolean
+  max_id?: number
+}
+
 const requestTwitterTimeline = async (
-  totalTimelineData: countData = {
+  totalTimelineData: tweetCountData = {
     tweetCount: 0,
     rtCount: 0,
     lastId: undefined,
     countOver: false
   }
-): Promise<countData> => {
+): Promise<tweetCountData> => {
   const headers = {
     Authorization: `Bearer ${twitterToken}`
   }
 
-  const options = {
-    method: 'GET',
-    headers
-  }
   const yesterday = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
   const count = 100
 
   let url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 
-  const timelineData: countData = await new Promise((resolve, reject) => {
-    url += `?screen_name=${twitterId}&count=${count}&trim_user=true`
+  const params: getRequestParams = {
+    screen_name: twitterId as string,
+    count,
+    trim_user: true
+  }
 
+  const timelineData: tweetCountData = await new Promise((resolve, reject) => {
     if (totalTimelineData.lastId) {
       url += `&max_id=${totalTimelineData.lastId}`
     }
-    fetch(url, options)
-      .then((response) => response.json())
-      .then((result: timelineData[]) => {
+    axios
+      .get(url, {
+        headers,
+        params
+      })
+      .then((response) => response.data)
+      .then((result: timeline[]) => {
         let { tweetCount } = totalTimelineData
         let { rtCount } = totalTimelineData
-        result.map((tweet: timelineData) => {
+        result.map((tweet: timeline) => {
           if (dayjs(tweet.created_at).format('YYYY-MM-DD') === yesterday) {
             tweetCount += 1
             if (tweet.retweeted_status) {
@@ -57,8 +82,7 @@ const requestTwitterTimeline = async (
         })
         const lastData = result.slice(-1)[0]
 
-        const countOver =
-          dayjs(lastData.created_at).format('YYYY-MM-DD') === yesterday
+        const countOver = dayjs(lastData.created_at).format('YYYY-MM-DD') === yesterday
         return resolve({
           tweetCount,
           rtCount,
@@ -78,14 +102,14 @@ const requestTwitterTimeline = async (
   return timelineData
 }
 
-const truncateText = (str, len) => {
+const truncateText = (str: string, len: number) => {
   return str.length <= len ? str : `${str.substr(0, str.length - 3)}...`
 }
 
 const getTweetData = async () => {
   const countData = await requestTwitterTimeline()
   const yesterday = dayjs().subtract(1, 'day').format('MM-DD')
-  const resizeTwitterId = truncateText(twitterId, 19)
+  const resizeTwitterId = truncateText(twitterId as string, 19)
 
   const resultText = `@${resizeTwitterId} ${yesterday}のポスト数 : ${countData.tweetCount} (うちRT : ${countData.rtCount})`
   return resultText
@@ -93,18 +117,17 @@ const getTweetData = async () => {
 const updateGist = async (text: string) => {
   let gist
   try {
-    gist = await octokit.gists.get({ gist_id: gistId })
+    gist = await octokit.gists.get({ gist_id: gistId as string })
   } catch (error) {
     console.error(`Unable to get gist\n${error}`)
   }
 
-  if (text.length === 0) return
-
   try {
+    if (!gist) throw new Error()
     // Get original filename to update that same file
-    const filename = Object.keys(gist.data.files)[0]
+    const filename = Object.keys(gist.data.files as any)[0]
     await octokit.gists.update({
-      gist_id: gistId,
+      gist_id: gistId as string,
       files: {
         [filename]: {
           filename: `📊 Data of yesterday's tweets by @${twitterId}`,

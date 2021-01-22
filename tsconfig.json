@@ -1,20 +1,35 @@
 {
-  "target": "ESNEXT",
-  "module": "ESNext",
-  "sourceMap": true,
   "compilerOptions": {
-    "resolveJsonModule": true,
+    "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "baseUrl": ".",
-    "outDir": "./lib/",
-    "lib": [ "es2015" ]
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "allowJs": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "rootDir": "./src",
+    "baseUrl": "./",
+    "outDir": "./dist",
+    "noEmitOnError": true,
+    "resolveJsonModule": true
   },
   "include": [
     "./src/*",
-    "./src/**/*"
+    "./src/**/*",
   ],
   "exclude": [
     "node_modules",
-    "lib"
+    "lib",
+    "dist",
   ]
 }
