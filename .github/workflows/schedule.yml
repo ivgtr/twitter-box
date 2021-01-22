@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Update gist
-        runs: |
+        run: |
           yarn
           yarn build
         env:
