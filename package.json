@@ -5,8 +5,9 @@
   "main": "./lib/index.js",
   "scripts": {
     "start": "tsc -w",
+    "dev": "node ./dist/index.js",
     "lint": "eslint ./src/*.ts ./src/**/*.ts",
-    "workflow": "ts-node ./src"
+    "workflow": "ts-node ./src --transpile-only"
   },
   "repository": {
     "type": "git",

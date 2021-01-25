@@ -5,15 +5,6 @@ import axios from 'axios'
 
 dotenv.config()
 
-const {
-  GIST_ID: gistId,
-  GH_TOKEN: githubToken,
-  TWITTER_ID: twitterId,
-  TWITTER_TOKEN: twitterToken
-} = process.env
-
-const octokit = new Octokit({ auth: `token ${githubToken}` })
-
 type tweetCountData = {
   tweetCount: number
   rtCount: number
@@ -34,6 +25,15 @@ type getRequestParams = {
   trim_user: boolean
   max_id?: number
 }
+
+const {
+  GIST_ID: gistId,
+  GH_TOKEN: githubToken,
+  TWITTER_ID: twitterId,
+  TWITTER_TOKEN: twitterToken
+} = process.env
+
+const octokit = new Octokit({ auth: `token ${githubToken}` })
 
 const requestTwitterTimeline = async (
   totalTimelineData: tweetCountData = {
