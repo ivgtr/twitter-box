@@ -36,7 +36,10 @@ const requestTwitterTimeline = async (
     maxId: undefined,
   }
 ): Promise<TweetCountData> => {
-  const featureURL = BASE_URL + countData.maxId ? `&max_id=${countData.maxId}` : "";
+  let featureURL = BASE_URL;
+  if (countData.maxId) {
+    featureURL += `&max_id=${countData.maxId}`;
+  }
 
   const timelineData = await axios
     .get(featureURL, options)

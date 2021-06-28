@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2021",
     "module": "commonjs",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
@@ -23,13 +23,6 @@
     "noEmitOnError": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "./src/*",
-    "./src/**/*",
-  ],
-  "exclude": [
-    "node_modules",
-    "lib",
-    "dist",
-  ]
+  "include": ["./src/*", "./src/**/*"],
+  "exclude": ["node_modules", "lib", "dist"]
 }
