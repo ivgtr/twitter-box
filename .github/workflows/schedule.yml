@@ -3,28 +3,28 @@ name: Update gist with Twitter data
 on:
   schedule:
     - cron: "0 15 * * *"
-  
+  workflow_dispatch:
+
 jobs:
   update-gist:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
+    name: "Update"
+    runs-on: ubuntu-18.04
     timeout-minutes: 10
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@master
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Update gist
+          node-version: 14
+      - name: Install
+        run: npm ci
+      - name: Update
         run: |
-          yarn
-          yarn workflow
+          npm run workflow
         env:
           TZ: Asia/Tokyo
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIST_ID: 21fd0f552ed73091f0b19c4732683805
           TWITTER_ID: mawaru_hana
           TWITTER_TOKEN: ${{ secrets.TWITTER_TOKEN }}
