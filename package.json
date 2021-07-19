@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "15.12.5",
-    "eslint": "7.30.0",
+    "eslint": "7.31.0",
     "eslint-config-sumikko": "1.2.1",
     "husky": "6.0.0",
     "prettier": "2.3.2",
